@@ -4,28 +4,34 @@ VALID_CARDS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King', 'Ace']
 
 def blackjack_score(hand)
     score = 0
-
+    ace_count = 0
     hand.each do |card|
-      # if !VALID_CARDS.any?(card)
-      #   raise ArgumentError.new("#{card} is invalid")
-      # end
+      unless VALID_CARDS.include?(card)
+        raise ArgumentError.new("#{card} is invalid")
+      end
 
       case card
       when 'Jack', 'Queen', 'King'
-        card = 10
+        score += 10
       when 'Ace'
-        if hand.include?('Ace')
-          card = 1 if score < 21
-        end
-      else (2..9)
-        card = card
-      end
-
-      score += card
-
-      if score > 21
-        raise ArgumentError.new("Bust! Score is over 21")
+        ace_count += 1
+        score += 11
+      else
+        score += card
       end
     end
+
+    while score > 21 && ace_count > 0
+      score -= 10
+      ace_count -= 1
+    end
+
+    if score > 21
+      raise ArgumentError.new("Bust! Score is over 21")
+    end
+
     return score
 end
+
+# Maybe I should create a separate variable for ace?
+

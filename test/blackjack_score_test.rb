@@ -3,6 +3,8 @@ require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/pride'
+require 'simplecov'
+SimpleCov.start
 
 require_relative '../lib/blackjack_score'
 
@@ -24,22 +26,22 @@ describe 'Blackjack Score' do
 
   it 'facecards have values calculated correctly' do
 
-    hand = ['Jack', 3, 1]
+    hand = ['Jack', 3, 5]
     score = blackjack_score(hand)
-    expect(score).must_equal 14
+    expect(score).must_equal 18
 
   end
 
   it 'calculates aces as 11 where it does not go over 21' do
-    hand = ['Ace', 8, 1]
+    hand = ['Ace', 7]
     score = blackjack_score(hand)
-    expect(score).must_equal 20
+    expect(score).must_equal 18
   end
 
   it 'calculates aces as 1, if an 11 would cause the score to go over 21' do
-    hand = ['Ace', 10, 5]
+    hand = ['Ace', 5, 9]
     score = blackjack_score(hand)
-    expect(score).must_equal 16
+    expect(score).must_equal 15
 
   end
 
