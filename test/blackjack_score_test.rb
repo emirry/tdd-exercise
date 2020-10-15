@@ -4,7 +4,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/pride'
 require 'simplecov'
-SimpleCov.start
+# SimpleCov.start
 
 require_relative '../lib/blackjack_score'
 
